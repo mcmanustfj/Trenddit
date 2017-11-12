@@ -1,12 +1,9 @@
 var trendingClass = "_5my7 _2snq"
 var listItemClass = "_4qzh"
 
-var DEBUG = true;
-var DEBUG_DOMAIN = "athletics.bowdoin.edu"; // for testing
-var DEBUG_TERM = "trump"; // for testing
+var links = [];
+var linknames = [];
 
-var links = ["link1", "link2", "link3", 4, 5, 6, 7, 8];
-var linknames = ["text1", "text2", "text3", 4, 5, 6, 7, 8];
 
 
 function cleanNewsFeed(){
@@ -26,7 +23,7 @@ function cleanNewsFeed(){
 			trendlist = trending.getElementsByClassName(listItemClass);
 			_.each(trendlist, function(listitem) {
 				var newlink = document.createElement("a");
-				index = listitem.parentNode.parentNode.parentNode.dataset.position
+				index = listitem.parentNode.parentNode.dataset.position;
 				newlink.href = links[index-1];
 				newlink.appendChild(document.createTextNode(linknames[index-1]));
 				listitem.parentNode.replaceChild(newlink, listitem);
@@ -39,8 +36,34 @@ function cleanNewsFeed(){
 	
 	
 }
+
+
+function parseHTML() {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', "https://www.reddit.com/r/all/hot.json", true);
+	xhr.send();
+	 
+	xhr.onreadystatechange = processRequest;
+	 
+	function processRequest(e) {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var response = JSON.parse(xhr.responseText);
+			//alert(response.ip);
+			_.each(response.data.children, function(post) {
+				console.log(post)
+				linknames.push(post.data.title);
+				links.push(post.data.permalink);
+			});
+		}
+	}
+	
+}
+parseHTML();
 cleanNewsFeed(); // run once on page load
 
 // debounce the function so it's not running constantly
 var scrollBuzzkill = _.debounce(cleanNewsFeed, 300);
+
+
+
 document.addEventListener("scroll", scrollBuzzkill);
