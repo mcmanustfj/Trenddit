@@ -10,20 +10,3 @@ chrome.tabs.onUpdated.addListener(function(id, info, tab){
     }
 });
 
-
-// update the icon when the user's settings change
-// chrome.storage.onChanged.addListener(function(changes, areaName){
-//     alert("changed settings");
-//     console.log("changed settings");
-//     if (localStorage["clean_news_feed"] == "true"){
-//         path = "active-icon.jpeg";
-//     } else {
-//         path = "inactive-icon.jpeg";
-//     }
-//     chrome.tabs.getCurrent( function(tab){
-//         chrome.pageAction.setIcon({
-//             "tabId": tab.id,
-//             "path": path
-//         });
-//     });
-// });
