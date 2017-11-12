@@ -5,8 +5,8 @@ var DEBUG = true;
 var DEBUG_DOMAIN = "athletics.bowdoin.edu"; // for testing
 var DEBUG_TERM = "trump"; // for testing
 
-var links = ["link1", "link2", "link3"];
-var linknames = ["text1", "text2", "text3"];
+var links = ["link1", "link2", "link3", 4, 5, 6, 7, 8];
+var linknames = ["text1", "text2", "text3", 4, 5, 6, 7, 8];
 
 
 function cleanNewsFeed(){
@@ -26,9 +26,9 @@ function cleanNewsFeed(){
 			trendlist = trending.getElementsByClassName(listItemClass);
 			_.each(trendlist, function(listitem) {
 				var newlink = document.createElement("a");
-				index = listitem.parentNode.parentNode.parentNode.data-position
-				newlink.href = "http://www.reddit.com";
-				newlink.appendChild(document.createTextNode("reddit link"));
+				index = listitem.parentNode.parentNode.parentNode.dataset.position
+				newlink.href = links[index-1];
+				newlink.appendChild(document.createTextNode(linknames[index-1]));
 				listitem.parentNode.replaceChild(newlink, listitem);
 			});
 			
