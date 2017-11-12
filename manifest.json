@@ -6,7 +6,6 @@
   "version": "0.0.1",
 
   "icons": {
-    "128": "images/icon.png"
   },
 
   "permissions": [
@@ -30,7 +29,6 @@
 
   "page_action": {
     "default_title": "Trenddit",
-    "default_icon": "images/icon.png",
     "default_popup": "popup.html"
   }
 
